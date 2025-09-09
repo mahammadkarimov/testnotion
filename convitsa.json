@@ -1,0 +1,6136 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Convitsa API",
+    "description": "API documentation",
+    "version": "v1"
+  },
+  "host": "127.0.0.1:8000",
+  "schemes": [
+    "http"
+  ],
+  "basePath": "/",
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "securityDefinitions": {
+    "Basic": {
+      "type": "basic"
+    }
+  },
+  "security": [
+    {
+      "Basic": []
+    }
+  ],
+  "paths": {
+    "/api/": {
+      "get": {
+        "operationId": "api_list",
+        "description": "API Root endpoint with available endpoints",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/auth/change-password/": {
+      "post": {
+        "operationId": "api_auth_change-password_create",
+        "description": "Change password view",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/auth/forgot-password/": {
+      "post": {
+        "operationId": "api_auth_forgot-password_create",
+        "description": "Forgot password view",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/auth/login/": {
+      "post": {
+        "operationId": "api_auth_login_create",
+        "description": "Custom JWT token obtain view with session tracking",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/auth/logout/": {
+      "post": {
+        "operationId": "api_auth_logout_create",
+        "description": "Logout view",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/auth/me/": {
+      "get": {
+        "operationId": "api_auth_me_read",
+        "description": "User profile view",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "put": {
+        "operationId": "api_auth_me_update",
+        "description": "User profile view",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "patch": {
+        "operationId": "api_auth_me_partial_update",
+        "description": "User profile view",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/auth/refresh/": {
+      "post": {
+        "operationId": "api_auth_refresh_create",
+        "description": "Takes a refresh type JSON web token and returns an access type JSON web\ntoken if the refresh token is valid.",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TokenRefresh"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/TokenRefresh"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/auth/reset-password/": {
+      "post": {
+        "operationId": "api_auth_reset-password_create",
+        "description": "Reset password view",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/auth/sessions/": {
+      "get": {
+        "operationId": "api_auth_sessions_list",
+        "description": "User sessions view",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/UserSession"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/auth/sessions/revoke-all/": {
+      "delete": {
+        "operationId": "api_auth_sessions_revoke-all_delete",
+        "description": "Revoke all user sessions",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/auth/sessions/{session_id}/revoke/": {
+      "delete": {
+        "operationId": "api_auth_sessions_revoke_delete",
+        "description": "Revoke a specific session",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "session_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/customers/analytics/": {
+      "get": {
+        "operationId": "api_customers_analytics_list",
+        "description": "Get customer analytics data",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/customers/customers/": {
+      "get": {
+        "operationId": "api_customers_customers_list",
+        "description": "Customer ViewSet with full CRUD operations",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "A search term.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/CustomerList"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "post": {
+        "operationId": "api_customers_customers_create",
+        "description": "Customer ViewSet with full CRUD operations",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerCreate"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerCreate"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/customers/customers/bulk_update/": {
+      "post": {
+        "operationId": "api_customers_customers_bulk_update",
+        "description": "Bulk update customers",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerDetail"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerDetail"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/customers/customers/export/": {
+      "get": {
+        "operationId": "api_customers_customers_export",
+        "description": "Export customers to CSV",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "A search term.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/CustomerDetail"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/customers/customers/import_customers/": {
+      "post": {
+        "operationId": "api_customers_customers_import_customers",
+        "description": "Import customers from CSV data",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerDetail"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerDetail"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/customers/customers/{customer_pk}/addresses/": {
+      "get": {
+        "operationId": "api_customers_customers_addresses_list",
+        "description": "Customer Address ViewSet",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/CustomerAddress"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "post": {
+        "operationId": "api_customers_customers_addresses_create",
+        "description": "Customer Address ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerAddress"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerAddress"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "customer_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/customers/customers/{customer_pk}/addresses/{id}/": {
+      "get": {
+        "operationId": "api_customers_customers_addresses_read",
+        "description": "Customer Address ViewSet",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerAddress"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "put": {
+        "operationId": "api_customers_customers_addresses_update",
+        "description": "Customer Address ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerAddress"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerAddress"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "patch": {
+        "operationId": "api_customers_customers_addresses_partial_update",
+        "description": "Customer Address ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerAddress"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerAddress"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "delete": {
+        "operationId": "api_customers_customers_addresses_delete",
+        "description": "Customer Address ViewSet",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "customer_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/customers/customers/{customer_pk}/notes/": {
+      "get": {
+        "operationId": "api_customers_customers_notes_list",
+        "description": "Customer Note ViewSet",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/CustomerNote"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "post": {
+        "operationId": "api_customers_customers_notes_create",
+        "description": "Customer Note ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerNote"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerNote"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "customer_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/customers/customers/{customer_pk}/notes/{id}/": {
+      "get": {
+        "operationId": "api_customers_customers_notes_read",
+        "description": "Customer Note ViewSet",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerNote"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "put": {
+        "operationId": "api_customers_customers_notes_update",
+        "description": "Customer Note ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerNote"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerNote"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "patch": {
+        "operationId": "api_customers_customers_notes_partial_update",
+        "description": "Customer Note ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerNote"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerNote"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "delete": {
+        "operationId": "api_customers_customers_notes_delete",
+        "description": "Customer Note ViewSet",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "customer_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/customers/customers/{id}/": {
+      "get": {
+        "operationId": "api_customers_customers_read",
+        "description": "Customer ViewSet with full CRUD operations",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerDetail"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "put": {
+        "operationId": "api_customers_customers_update",
+        "description": "Customer ViewSet with full CRUD operations",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerUpdate"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "patch": {
+        "operationId": "api_customers_customers_partial_update",
+        "description": "Customer ViewSet with full CRUD operations",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerUpdate"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "delete": {
+        "operationId": "api_customers_customers_delete",
+        "description": "Customer ViewSet with full CRUD operations",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Customer.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/customers/customers/{id}/stats/": {
+      "get": {
+        "operationId": "api_customers_customers_stats",
+        "description": "Get customer statistics",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerStats"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Customer.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/customers/customers/{id}/update_statistics/": {
+      "post": {
+        "operationId": "api_customers_customers_update_statistics",
+        "description": "Update customer statistics from orders",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CustomerDetail"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/CustomerDetail"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Customer.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/fulfillments/": {
+      "get": {
+        "operationId": "api_orders_fulfillments_list",
+        "description": "Order Fulfillment ViewSet",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "A search term.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/OrderFulfillment"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "post": {
+        "operationId": "api_orders_fulfillments_create",
+        "description": "Order Fulfillment ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/orders/fulfillments/{id}/": {
+      "get": {
+        "operationId": "api_orders_fulfillments_read",
+        "description": "Order Fulfillment ViewSet",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "put": {
+        "operationId": "api_orders_fulfillments_update",
+        "description": "Order Fulfillment ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "patch": {
+        "operationId": "api_orders_fulfillments_partial_update",
+        "description": "Order Fulfillment ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "delete": {
+        "operationId": "api_orders_fulfillments_delete",
+        "description": "Order Fulfillment ViewSet",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order Fulfillment.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/fulfillments/{id}/mark_delivered/": {
+      "post": {
+        "operationId": "api_orders_fulfillments_mark_delivered",
+        "description": "Mark fulfillment as delivered",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order Fulfillment.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/orders/": {
+      "get": {
+        "operationId": "api_orders_orders_list",
+        "description": "Order ViewSet",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "A search term.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/OrderList"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "post": {
+        "operationId": "api_orders_orders_create",
+        "description": "Create order",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderCreate"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderCreate"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/orders/orders/analytics/": {
+      "get": {
+        "operationId": "api_orders_orders_analytics",
+        "description": "Get order analytics",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "A search term.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/OrderDetail"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/orders/orders/bulk_update_status/": {
+      "post": {
+        "operationId": "api_orders_orders_bulk_update_status",
+        "description": "Bulk update order status",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderDetail"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderDetail"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/orders/orders/pending/": {
+      "get": {
+        "operationId": "api_orders_orders_pending",
+        "description": "Get pending orders",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "A search term.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/OrderDetail"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/orders/orders/recent/": {
+      "get": {
+        "operationId": "api_orders_orders_recent",
+        "description": "Get recent orders",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "A search term.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/OrderDetail"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/orders/orders/{id}/": {
+      "get": {
+        "operationId": "api_orders_orders_read",
+        "description": "Order ViewSet",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderDetail"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "put": {
+        "operationId": "api_orders_orders_update",
+        "description": "Update order",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderUpdate"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "patch": {
+        "operationId": "api_orders_orders_partial_update",
+        "description": "Order ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderUpdate"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "delete": {
+        "operationId": "api_orders_orders_delete",
+        "description": "Order ViewSet",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/orders/{id}/cancel/": {
+      "post": {
+        "operationId": "api_orders_orders_cancel",
+        "description": "Cancel order",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderDetail"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderDetail"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/orders/{id}/confirm/": {
+      "post": {
+        "operationId": "api_orders_orders_confirm",
+        "description": "Confirm order",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderDetail"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderDetail"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/orders/{id}/fulfill/": {
+      "post": {
+        "operationId": "api_orders_orders_fulfill",
+        "description": "Create fulfillment for order",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderDetail"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderDetail"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/orders/{id}/refund/": {
+      "post": {
+        "operationId": "api_orders_orders_refund",
+        "description": "Create refund for order",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderDetail"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderDetail"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/orders/{order_pk}/fulfillments/": {
+      "get": {
+        "operationId": "api_orders_orders_fulfillments_list",
+        "description": "Order Fulfillment ViewSet",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "A search term.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/OrderFulfillment"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "post": {
+        "operationId": "api_orders_orders_fulfillments_create",
+        "description": "Order Fulfillment ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "order_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/orders/orders/{order_pk}/fulfillments/{id}/": {
+      "get": {
+        "operationId": "api_orders_orders_fulfillments_read",
+        "description": "Order Fulfillment ViewSet",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "put": {
+        "operationId": "api_orders_orders_fulfillments_update",
+        "description": "Order Fulfillment ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "patch": {
+        "operationId": "api_orders_orders_fulfillments_partial_update",
+        "description": "Order Fulfillment ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "delete": {
+        "operationId": "api_orders_orders_fulfillments_delete",
+        "description": "Order Fulfillment ViewSet",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "order_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order Fulfillment.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/orders/{order_pk}/fulfillments/{id}/mark_delivered/": {
+      "post": {
+        "operationId": "api_orders_orders_fulfillments_mark_delivered",
+        "description": "Mark fulfillment as delivered",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderFulfillment"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "order_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order Fulfillment.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/orders/{order_pk}/refunds/": {
+      "get": {
+        "operationId": "api_orders_orders_refunds_list",
+        "description": "Order Refund ViewSet",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "A search term.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/OrderRefund"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "post": {
+        "operationId": "api_orders_orders_refunds_create",
+        "description": "Order Refund ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "order_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/orders/orders/{order_pk}/refunds/{id}/": {
+      "get": {
+        "operationId": "api_orders_orders_refunds_read",
+        "description": "Order Refund ViewSet",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "put": {
+        "operationId": "api_orders_orders_refunds_update",
+        "description": "Order Refund ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "patch": {
+        "operationId": "api_orders_orders_refunds_partial_update",
+        "description": "Order Refund ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "delete": {
+        "operationId": "api_orders_orders_refunds_delete",
+        "description": "Order Refund ViewSet",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "order_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order Refund.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/orders/{order_pk}/refunds/{id}/process/": {
+      "post": {
+        "operationId": "api_orders_orders_refunds_process",
+        "description": "Process refund",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "order_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order Refund.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/orders/{order_pk}/refunds/{id}/reject/": {
+      "post": {
+        "operationId": "api_orders_orders_refunds_reject",
+        "description": "Reject refund",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "order_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order Refund.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/refunds/": {
+      "get": {
+        "operationId": "api_orders_refunds_list",
+        "description": "Order Refund ViewSet",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "A search term.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/OrderRefund"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "post": {
+        "operationId": "api_orders_refunds_create",
+        "description": "Order Refund ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/orders/refunds/{id}/": {
+      "get": {
+        "operationId": "api_orders_refunds_read",
+        "description": "Order Refund ViewSet",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "put": {
+        "operationId": "api_orders_refunds_update",
+        "description": "Order Refund ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "patch": {
+        "operationId": "api_orders_refunds_partial_update",
+        "description": "Order Refund ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "delete": {
+        "operationId": "api_orders_refunds_delete",
+        "description": "Order Refund ViewSet",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order Refund.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/refunds/{id}/process/": {
+      "post": {
+        "operationId": "api_orders_refunds_process",
+        "description": "Process refund",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order Refund.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/orders/refunds/{id}/reject/": {
+      "post": {
+        "operationId": "api_orders_refunds_reject",
+        "description": "Reject refund",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/OrderRefund"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Order Refund.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/products/collections/": {
+      "get": {
+        "operationId": "api_products_collections_list",
+        "description": "Collection ViewSet",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "A search term.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/Collection"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "post": {
+        "operationId": "api_products_collections_create",
+        "description": "Collection ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Collection"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Collection"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/products/collections/{id}/": {
+      "get": {
+        "operationId": "api_products_collections_read",
+        "description": "Collection ViewSet",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Collection"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "put": {
+        "operationId": "api_products_collections_update",
+        "description": "Collection ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Collection"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Collection"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "patch": {
+        "operationId": "api_products_collections_partial_update",
+        "description": "Collection ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Collection"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Collection"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "delete": {
+        "operationId": "api_products_collections_delete",
+        "description": "Collection ViewSet",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Collection.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/products/collections/{id}/add_products/": {
+      "post": {
+        "operationId": "api_products_collections_add_products",
+        "description": "Add products to collection",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Collection"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/Collection"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Collection.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/products/collections/{id}/products/{product_id}/": {
+      "delete": {
+        "operationId": "api_products_collections_remove_product",
+        "description": "Remove product from collection",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Collection.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        },
+        {
+          "name": "product_id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/products/products/": {
+      "get": {
+        "operationId": "api_products_products_list",
+        "description": "Product ViewSet with full CRUD operations",
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "A search term.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "ordering",
+            "in": "query",
+            "description": "Which field to use when ordering the results.",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/ProductList"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "post": {
+        "operationId": "api_products_products_create",
+        "description": "Product ViewSet with full CRUD operations",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductCreate"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductCreate"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/products/products/bulk_update/": {
+      "post": {
+        "operationId": "api_products_products_bulk_update",
+        "description": "Bulk update products",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductDetail"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductDetail"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/api/products/products/{id}/": {
+      "get": {
+        "operationId": "api_products_products_read",
+        "description": "Product ViewSet with full CRUD operations",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductDetail"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "put": {
+        "operationId": "api_products_products_update",
+        "description": "Product ViewSet with full CRUD operations",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductUpdate"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "patch": {
+        "operationId": "api_products_products_partial_update",
+        "description": "Product ViewSet with full CRUD operations",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductUpdate"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "delete": {
+        "operationId": "api_products_products_delete",
+        "description": "Product ViewSet with full CRUD operations",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Product.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/products/products/{id}/duplicate/": {
+      "post": {
+        "operationId": "api_products_products_duplicate",
+        "description": "Duplicate a product",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductDetail"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductDetail"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Product.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/products/products/{id}/update_status/": {
+      "patch": {
+        "operationId": "api_products_products_update_status",
+        "description": "Update product status",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductStatusUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductStatusUpdate"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "A UUID string identifying this Product.",
+          "required": true,
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "/api/products/products/{product_pk}/images/": {
+      "get": {
+        "operationId": "api_products_products_images_list",
+        "description": "Product Image ViewSet",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/ProductImage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "post": {
+        "operationId": "api_products_products_images_create",
+        "description": "Product Image ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductImage"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductImage"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "product_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/products/products/{product_pk}/images/{id}/": {
+      "get": {
+        "operationId": "api_products_products_images_read",
+        "description": "Product Image ViewSet",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductImage"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "put": {
+        "operationId": "api_products_products_images_update",
+        "description": "Product Image ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductImage"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductImage"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "patch": {
+        "operationId": "api_products_products_images_partial_update",
+        "description": "Product Image ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductImage"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductImage"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "delete": {
+        "operationId": "api_products_products_images_delete",
+        "description": "Product Image ViewSet",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "product_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/products/products/{product_pk}/variants/": {
+      "get": {
+        "operationId": "api_products_products_variants_list",
+        "description": "Product Variant ViewSet",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "A page number within the paginated result set.",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "required": [
+                "count",
+                "results"
+              ],
+              "type": "object",
+              "properties": {
+                "count": {
+                  "type": "integer"
+                },
+                "next": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "previous": {
+                  "type": "string",
+                  "format": "uri",
+                  "x-nullable": true
+                },
+                "results": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/definitions/ProductVariant"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "post": {
+        "operationId": "api_products_products_variants_create",
+        "description": "Product Variant ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductVariant"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductVariant"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "product_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/products/products/{product_pk}/variants/{id}/": {
+      "get": {
+        "operationId": "api_products_products_variants_read",
+        "description": "Product Variant ViewSet",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductVariant"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "put": {
+        "operationId": "api_products_products_variants_update",
+        "description": "Product Variant ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductVariant"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductVariant"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "patch": {
+        "operationId": "api_products_products_variants_partial_update",
+        "description": "Product Variant ViewSet",
+        "parameters": [
+          {
+            "name": "data",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProductVariant"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/ProductVariant"
+            }
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "delete": {
+        "operationId": "api_products_products_variants_delete",
+        "description": "Product Variant ViewSet",
+        "parameters": [],
+        "responses": {
+          "204": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": [
+        {
+          "name": "product_pk",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        },
+        {
+          "name": "id",
+          "in": "path",
+          "required": true,
+          "type": "string"
+        }
+      ]
+    },
+    "/api/products/search/": {
+      "get": {
+        "operationId": "api_products_search_list",
+        "description": "Search products with advanced filters",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "api"
+        ]
+      },
+      "parameters": []
+    },
+    "/health/": {
+      "get": {
+        "operationId": "health_list",
+        "description": "Health check endpoint",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "health"
+        ]
+      },
+      "parameters": []
+    }
+  },
+  "definitions": {
+    "Login": {
+      "required": [
+        "email",
+        "password"
+      ],
+      "type": "object",
+      "properties": {
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "minLength": 1
+        },
+        "password": {
+          "title": "Password",
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "User": {
+      "required": [
+        "email",
+        "username",
+        "first_name",
+        "last_name"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "maxLength": 254,
+          "minLength": 1
+        },
+        "username": {
+          "title": "Username",
+          "description": "Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.",
+          "type": "string",
+          "pattern": "^[\\w.@+-]+$",
+          "maxLength": 150,
+          "minLength": 1
+        },
+        "first_name": {
+          "title": "First name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "last_name": {
+          "title": "Last name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "full_name": {
+          "title": "Full name",
+          "type": "string",
+          "readOnly": true
+        },
+        "display_name": {
+          "title": "Display name",
+          "type": "string",
+          "maxLength": 200,
+          "x-nullable": true
+        },
+        "avatar": {
+          "title": "Avatar",
+          "type": "string",
+          "readOnly": true,
+          "x-nullable": true,
+          "format": "uri"
+        },
+        "role": {
+          "title": "Role",
+          "type": "string",
+          "enum": [
+            "admin",
+            "manager",
+            "staff",
+            "viewer"
+          ]
+        },
+        "permissions": {
+          "title": "Permissions",
+          "type": "object"
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "active",
+            "inactive",
+            "suspended"
+          ]
+        },
+        "email_verified": {
+          "title": "Email verified",
+          "type": "boolean",
+          "readOnly": true
+        },
+        "timezone": {
+          "title": "Timezone",
+          "type": "string",
+          "maxLength": 50,
+          "minLength": 1
+        },
+        "language": {
+          "title": "Language",
+          "type": "string",
+          "maxLength": 10,
+          "minLength": 1
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_at": {
+          "title": "Updated at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "TokenRefresh": {
+      "required": [
+        "refresh"
+      ],
+      "type": "object",
+      "properties": {
+        "refresh": {
+          "title": "Refresh",
+          "type": "string",
+          "minLength": 1
+        },
+        "access": {
+          "title": "Access",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        }
+      }
+    },
+    "UserSession": {
+      "required": [
+        "expires_at"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "device_info": {
+          "title": "Device info",
+          "type": "string",
+          "x-nullable": true
+        },
+        "ip_address": {
+          "title": "Ip address",
+          "type": "string",
+          "minLength": 1,
+          "x-nullable": true
+        },
+        "expires_at": {
+          "title": "Expires at",
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "is_expired": {
+          "title": "Is expired",
+          "type": "string",
+          "readOnly": true
+        }
+      }
+    },
+    "CustomerList": {
+      "required": [
+        "email",
+        "first_name",
+        "last_name"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "maxLength": 254,
+          "minLength": 1
+        },
+        "first_name": {
+          "title": "First name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "last_name": {
+          "title": "Last name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "full_name": {
+          "title": "Full name",
+          "type": "string",
+          "readOnly": true
+        },
+        "phone": {
+          "title": "Phone",
+          "type": "string",
+          "maxLength": 20,
+          "x-nullable": true
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "active",
+            "disabled",
+            "invited",
+            "declined"
+          ]
+        },
+        "has_account": {
+          "title": "Has account",
+          "type": "boolean"
+        },
+        "email_verified": {
+          "title": "Email verified",
+          "type": "boolean"
+        },
+        "total_orders": {
+          "title": "Total orders",
+          "type": "integer",
+          "readOnly": true
+        },
+        "total_spent": {
+          "title": "Total spent",
+          "description": "Total spent in cents",
+          "type": "integer",
+          "readOnly": true
+        },
+        "total_spent_display": {
+          "title": "Total spent display",
+          "type": "string",
+          "readOnly": true
+        },
+        "average_order_value_display": {
+          "title": "Average order value display",
+          "type": "string",
+          "readOnly": true
+        },
+        "last_order_date": {
+          "title": "Last order date",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "tag_list": {
+          "title": "Tag list",
+          "type": "string",
+          "readOnly": true
+        },
+        "primary_address": {
+          "title": "Primary address",
+          "type": "string",
+          "readOnly": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "last_seen_at": {
+          "title": "Last seen at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        }
+      }
+    },
+    "CustomerCreate": {
+      "required": [
+        "email",
+        "first_name",
+        "last_name"
+      ],
+      "type": "object",
+      "properties": {
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "maxLength": 254,
+          "minLength": 1
+        },
+        "first_name": {
+          "title": "First name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "last_name": {
+          "title": "Last name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "display_name": {
+          "title": "Display name",
+          "type": "string",
+          "maxLength": 200,
+          "x-nullable": true
+        },
+        "phone": {
+          "title": "Phone",
+          "type": "string",
+          "maxLength": 20,
+          "x-nullable": true
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "active",
+            "disabled",
+            "invited",
+            "declined"
+          ]
+        },
+        "has_account": {
+          "title": "Has account",
+          "type": "boolean"
+        },
+        "location": {
+          "title": "Location",
+          "description": "Country, region, city, timezone",
+          "type": "object",
+          "x-nullable": true
+        },
+        "marketing_preferences": {
+          "title": "Marketing preferences",
+          "description": "Email, SMS, phone marketing preferences",
+          "type": "object"
+        },
+        "currency": {
+          "title": "Currency",
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 1
+        },
+        "tax_exempt": {
+          "title": "Tax exempt",
+          "type": "boolean"
+        },
+        "tag_list": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "CustomerAddress": {
+      "required": [
+        "type",
+        "first_name",
+        "last_name",
+        "address1",
+        "city",
+        "province",
+        "country",
+        "postal_code"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "type": {
+          "title": "Type",
+          "type": "string",
+          "enum": [
+            "shipping",
+            "billing"
+          ]
+        },
+        "is_default": {
+          "title": "Is default",
+          "type": "boolean"
+        },
+        "first_name": {
+          "title": "First name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "last_name": {
+          "title": "Last name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "company": {
+          "title": "Company",
+          "type": "string",
+          "maxLength": 200,
+          "x-nullable": true
+        },
+        "phone": {
+          "title": "Phone",
+          "type": "string",
+          "maxLength": 20,
+          "x-nullable": true
+        },
+        "address1": {
+          "title": "Address1",
+          "type": "string",
+          "maxLength": 500,
+          "minLength": 1
+        },
+        "address2": {
+          "title": "Address2",
+          "type": "string",
+          "maxLength": 500,
+          "x-nullable": true
+        },
+        "city": {
+          "title": "City",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "province": {
+          "title": "Province",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "country": {
+          "title": "Country",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "postal_code": {
+          "title": "Postal code",
+          "type": "string",
+          "maxLength": 20,
+          "minLength": 1
+        },
+        "validated": {
+          "title": "Validated",
+          "type": "boolean"
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_at": {
+          "title": "Updated at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "CustomerNote": {
+      "required": [
+        "content"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "content": {
+          "title": "Content",
+          "type": "string",
+          "minLength": 1
+        },
+        "is_internal": {
+          "title": "Is internal",
+          "description": "Internal note vs customer-visible",
+          "type": "boolean"
+        },
+        "author": {
+          "title": "Author",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "author_name": {
+          "title": "Author name",
+          "type": "string",
+          "readOnly": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_at": {
+          "title": "Updated at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "CustomerDetail": {
+      "required": [
+        "email",
+        "first_name",
+        "last_name"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "maxLength": 254,
+          "minLength": 1
+        },
+        "first_name": {
+          "title": "First name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "last_name": {
+          "title": "Last name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "full_name": {
+          "title": "Full name",
+          "type": "string",
+          "readOnly": true
+        },
+        "display_name": {
+          "title": "Display name",
+          "type": "string",
+          "maxLength": 200,
+          "x-nullable": true
+        },
+        "phone": {
+          "title": "Phone",
+          "type": "string",
+          "maxLength": 20,
+          "x-nullable": true
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "active",
+            "disabled",
+            "invited",
+            "declined"
+          ]
+        },
+        "has_account": {
+          "title": "Has account",
+          "type": "boolean"
+        },
+        "email_verified": {
+          "title": "Email verified",
+          "type": "boolean"
+        },
+        "phone_verified": {
+          "title": "Phone verified",
+          "type": "boolean"
+        },
+        "location": {
+          "title": "Location",
+          "description": "Country, region, city, timezone",
+          "type": "object",
+          "x-nullable": true
+        },
+        "marketing_preferences": {
+          "title": "Marketing preferences",
+          "description": "Email, SMS, phone marketing preferences",
+          "type": "object"
+        },
+        "currency": {
+          "title": "Currency",
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 1
+        },
+        "tax_exempt": {
+          "title": "Tax exempt",
+          "type": "boolean"
+        },
+        "tag_list": {
+          "title": "Tag list",
+          "type": "string",
+          "readOnly": true
+        },
+        "total_orders": {
+          "title": "Total orders",
+          "type": "integer",
+          "readOnly": true
+        },
+        "total_spent": {
+          "title": "Total spent",
+          "description": "Total spent in cents",
+          "type": "integer",
+          "readOnly": true
+        },
+        "total_spent_display": {
+          "title": "Total spent display",
+          "type": "string",
+          "readOnly": true
+        },
+        "average_order_value": {
+          "title": "Average order value",
+          "description": "Average order value in cents",
+          "type": "integer",
+          "readOnly": true
+        },
+        "average_order_value_display": {
+          "title": "Average order value display",
+          "type": "string",
+          "readOnly": true
+        },
+        "last_order_date": {
+          "title": "Last order date",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "addresses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerAddress"
+          },
+          "readOnly": true
+        },
+        "notes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CustomerNote"
+          },
+          "readOnly": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_at": {
+          "title": "Updated at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "last_seen_at": {
+          "title": "Last seen at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        }
+      }
+    },
+    "CustomerUpdate": {
+      "required": [
+        "first_name",
+        "last_name"
+      ],
+      "type": "object",
+      "properties": {
+        "first_name": {
+          "title": "First name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "last_name": {
+          "title": "Last name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "display_name": {
+          "title": "Display name",
+          "type": "string",
+          "maxLength": 200,
+          "x-nullable": true
+        },
+        "phone": {
+          "title": "Phone",
+          "type": "string",
+          "maxLength": 20,
+          "x-nullable": true
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "active",
+            "disabled",
+            "invited",
+            "declined"
+          ]
+        },
+        "has_account": {
+          "title": "Has account",
+          "type": "boolean"
+        },
+        "email_verified": {
+          "title": "Email verified",
+          "type": "boolean"
+        },
+        "phone_verified": {
+          "title": "Phone verified",
+          "type": "boolean"
+        },
+        "location": {
+          "title": "Location",
+          "description": "Country, region, city, timezone",
+          "type": "object",
+          "x-nullable": true
+        },
+        "marketing_preferences": {
+          "title": "Marketing preferences",
+          "description": "Email, SMS, phone marketing preferences",
+          "type": "object"
+        },
+        "currency": {
+          "title": "Currency",
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 1
+        },
+        "tax_exempt": {
+          "title": "Tax exempt",
+          "type": "boolean"
+        },
+        "tag_list": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "CustomerStats": {
+      "required": [
+        "email"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "email": {
+          "title": "Email",
+          "type": "string",
+          "format": "email",
+          "maxLength": 254,
+          "minLength": 1
+        },
+        "full_name": {
+          "title": "Full name",
+          "type": "string",
+          "readOnly": true
+        },
+        "total_orders": {
+          "title": "Total orders",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648
+        },
+        "total_spent": {
+          "title": "Total spent",
+          "description": "Total spent in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000
+        },
+        "total_spent_display": {
+          "title": "Total spent display",
+          "type": "string",
+          "readOnly": true
+        },
+        "average_order_value": {
+          "title": "Average order value",
+          "description": "Average order value in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000
+        },
+        "average_order_value_display": {
+          "title": "Average order value display",
+          "type": "string",
+          "readOnly": true
+        },
+        "last_order_date": {
+          "title": "Last order date",
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true
+        },
+        "days_since_last_order": {
+          "title": "Days since last order",
+          "type": "string",
+          "readOnly": true
+        },
+        "customer_lifetime_days": {
+          "title": "Customer lifetime days",
+          "type": "string",
+          "readOnly": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "OrderFulfillment": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "tracking_number": {
+          "title": "Tracking number",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "tracking_company": {
+          "title": "Tracking company",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "tracking_url": {
+          "title": "Tracking url",
+          "type": "string",
+          "format": "uri",
+          "maxLength": 200,
+          "x-nullable": true
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "pending",
+            "shipped",
+            "in_transit",
+            "delivered",
+            "failed"
+          ]
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_at": {
+          "title": "Updated at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "shipped_at": {
+          "title": "Shipped at",
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true
+        },
+        "delivered_at": {
+          "title": "Delivered at",
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true
+        }
+      }
+    },
+    "OrderList": {
+      "required": [
+        "customer_email",
+        "total_amount"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "order_number": {
+          "title": "Order number",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "customer": {
+          "title": "Customer",
+          "type": "string",
+          "format": "uuid",
+          "x-nullable": true
+        },
+        "customer_name": {
+          "title": "Customer name",
+          "type": "string",
+          "readOnly": true
+        },
+        "customer_email": {
+          "title": "Customer email",
+          "type": "string",
+          "format": "email",
+          "maxLength": 254,
+          "minLength": 1
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "pending",
+            "confirmed",
+            "processing",
+            "shipped",
+            "delivered",
+            "cancelled",
+            "refunded"
+          ]
+        },
+        "fulfillment_status": {
+          "title": "Fulfillment status",
+          "type": "string",
+          "enum": [
+            "unfulfilled",
+            "partial",
+            "fulfilled"
+          ]
+        },
+        "payment_status": {
+          "title": "Payment status",
+          "type": "string",
+          "enum": [
+            "pending",
+            "paid",
+            "partially_paid",
+            "refunded",
+            "voided"
+          ]
+        },
+        "total_amount": {
+          "title": "Total amount",
+          "description": "Total amount in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000
+        },
+        "total_display": {
+          "title": "Total display",
+          "type": "string",
+          "readOnly": true
+        },
+        "subtotal_display": {
+          "title": "Subtotal display",
+          "type": "string",
+          "readOnly": true
+        },
+        "currency": {
+          "title": "Currency",
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 1
+        },
+        "line_item_count": {
+          "title": "Line item count",
+          "type": "string",
+          "readOnly": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_at": {
+          "title": "Updated at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "OrderCreate": {
+      "required": [
+        "customer_email",
+        "shipping_address",
+        "billing_address",
+        "line_items_data"
+      ],
+      "type": "object",
+      "properties": {
+        "customer": {
+          "title": "Customer",
+          "type": "string",
+          "format": "uuid",
+          "x-nullable": true
+        },
+        "customer_email": {
+          "title": "Customer email",
+          "type": "string",
+          "format": "email",
+          "maxLength": 254,
+          "minLength": 1
+        },
+        "customer_phone": {
+          "title": "Customer phone",
+          "type": "string",
+          "maxLength": 20,
+          "x-nullable": true
+        },
+        "shipping_address": {
+          "title": "Shipping address",
+          "description": "Shipping address snapshot",
+          "type": "object"
+        },
+        "billing_address": {
+          "title": "Billing address",
+          "description": "Billing address snapshot",
+          "type": "object"
+        },
+        "shipping_method": {
+          "title": "Shipping method",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "notes": {
+          "title": "Notes",
+          "description": "Customer notes",
+          "type": "string",
+          "x-nullable": true
+        },
+        "line_items_data": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "x-nullable": true
+            }
+          }
+        }
+      }
+    },
+    "OrderLineItem": {
+      "required": [
+        "product",
+        "product_title",
+        "sku",
+        "price",
+        "quantity"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "product": {
+          "title": "Product",
+          "type": "string",
+          "format": "uuid"
+        },
+        "variant": {
+          "title": "Variant",
+          "type": "string",
+          "format": "uuid",
+          "x-nullable": true
+        },
+        "product_title": {
+          "title": "Product title",
+          "type": "string",
+          "maxLength": 500,
+          "minLength": 1
+        },
+        "variant_title": {
+          "title": "Variant title",
+          "type": "string",
+          "maxLength": 500,
+          "x-nullable": true
+        },
+        "sku": {
+          "title": "Sku",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "price": {
+          "title": "Price",
+          "description": "Unit price at time of order in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000
+        },
+        "price_display": {
+          "title": "Price display",
+          "type": "string",
+          "readOnly": true
+        },
+        "quantity": {
+          "title": "Quantity",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648
+        },
+        "total_amount": {
+          "title": "Total amount",
+          "description": "Price * quantity in cents",
+          "type": "integer",
+          "readOnly": true
+        },
+        "total_display": {
+          "title": "Total display",
+          "type": "string",
+          "readOnly": true
+        },
+        "quantity_fulfilled": {
+          "title": "Quantity fulfilled",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648
+        },
+        "is_fulfilled": {
+          "title": "Is fulfilled",
+          "type": "string",
+          "readOnly": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_at": {
+          "title": "Updated at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "OrderRefund": {
+      "required": [
+        "amount"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "amount": {
+          "title": "Amount",
+          "description": "Refund amount in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000
+        },
+        "amount_display": {
+          "title": "Amount display",
+          "type": "string",
+          "readOnly": true
+        },
+        "reason": {
+          "title": "Reason",
+          "type": "string",
+          "x-nullable": true
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "pending",
+            "approved",
+            "processed",
+            "completed",
+            "failed"
+          ]
+        },
+        "processed_by": {
+          "title": "Processed by",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "transaction_id": {
+          "title": "Transaction id",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_at": {
+          "title": "Updated at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "processed_at": {
+          "title": "Processed at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        }
+      }
+    },
+    "OrderDetail": {
+      "required": [
+        "subtotal",
+        "total_amount",
+        "customer_email",
+        "shipping_address",
+        "billing_address"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "order_number": {
+          "title": "Order number",
+          "type": "string",
+          "readOnly": true,
+          "minLength": 1
+        },
+        "customer": {
+          "title": "Customer",
+          "type": "string",
+          "format": "uuid",
+          "x-nullable": true
+        },
+        "customer_name": {
+          "title": "Customer name",
+          "type": "string",
+          "readOnly": true
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "pending",
+            "confirmed",
+            "processing",
+            "shipped",
+            "delivered",
+            "cancelled",
+            "refunded"
+          ]
+        },
+        "fulfillment_status": {
+          "title": "Fulfillment status",
+          "type": "string",
+          "enum": [
+            "unfulfilled",
+            "partial",
+            "fulfilled"
+          ]
+        },
+        "payment_status": {
+          "title": "Payment status",
+          "type": "string",
+          "enum": [
+            "pending",
+            "paid",
+            "partially_paid",
+            "refunded",
+            "voided"
+          ]
+        },
+        "subtotal": {
+          "title": "Subtotal",
+          "description": "Subtotal before tax and shipping in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000
+        },
+        "tax_amount": {
+          "title": "Tax amount",
+          "description": "Tax amount in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000
+        },
+        "shipping_amount": {
+          "title": "Shipping amount",
+          "description": "Shipping amount in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000
+        },
+        "discount_amount": {
+          "title": "Discount amount",
+          "description": "Discount amount in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000
+        },
+        "total_amount": {
+          "title": "Total amount",
+          "description": "Total amount in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000
+        },
+        "total_display": {
+          "title": "Total display",
+          "type": "string",
+          "readOnly": true
+        },
+        "subtotal_display": {
+          "title": "Subtotal display",
+          "type": "string",
+          "readOnly": true
+        },
+        "currency": {
+          "title": "Currency",
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 1
+        },
+        "customer_email": {
+          "title": "Customer email",
+          "type": "string",
+          "format": "email",
+          "maxLength": 254,
+          "minLength": 1
+        },
+        "customer_phone": {
+          "title": "Customer phone",
+          "type": "string",
+          "maxLength": 20,
+          "x-nullable": true
+        },
+        "shipping_address": {
+          "title": "Shipping address",
+          "description": "Shipping address snapshot",
+          "type": "object"
+        },
+        "billing_address": {
+          "title": "Billing address",
+          "description": "Billing address snapshot",
+          "type": "object"
+        },
+        "shipping_method": {
+          "title": "Shipping method",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "tracking_number": {
+          "title": "Tracking number",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "shipping_carrier": {
+          "title": "Shipping carrier",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "notes": {
+          "title": "Notes",
+          "description": "Customer notes",
+          "type": "string",
+          "x-nullable": true
+        },
+        "internal_notes": {
+          "title": "Internal notes",
+          "description": "Staff notes",
+          "type": "string",
+          "x-nullable": true
+        },
+        "line_items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderLineItem"
+          },
+          "readOnly": true
+        },
+        "fulfillments": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderFulfillment"
+          },
+          "readOnly": true
+        },
+        "refunds": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/OrderRefund"
+          },
+          "readOnly": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_at": {
+          "title": "Updated at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "processed_at": {
+          "title": "Processed at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "fulfilled_at": {
+          "title": "Fulfilled at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "cancelled_at": {
+          "title": "Cancelled at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        }
+      }
+    },
+    "OrderUpdate": {
+      "required": [
+        "shipping_address",
+        "billing_address"
+      ],
+      "type": "object",
+      "properties": {
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "pending",
+            "confirmed",
+            "processing",
+            "shipped",
+            "delivered",
+            "cancelled",
+            "refunded"
+          ]
+        },
+        "fulfillment_status": {
+          "title": "Fulfillment status",
+          "type": "string",
+          "enum": [
+            "unfulfilled",
+            "partial",
+            "fulfilled"
+          ]
+        },
+        "payment_status": {
+          "title": "Payment status",
+          "type": "string",
+          "enum": [
+            "pending",
+            "paid",
+            "partially_paid",
+            "refunded",
+            "voided"
+          ]
+        },
+        "customer_phone": {
+          "title": "Customer phone",
+          "type": "string",
+          "maxLength": 20,
+          "x-nullable": true
+        },
+        "shipping_address": {
+          "title": "Shipping address",
+          "description": "Shipping address snapshot",
+          "type": "object"
+        },
+        "billing_address": {
+          "title": "Billing address",
+          "description": "Billing address snapshot",
+          "type": "object"
+        },
+        "shipping_method": {
+          "title": "Shipping method",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "tracking_number": {
+          "title": "Tracking number",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "shipping_carrier": {
+          "title": "Shipping carrier",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "notes": {
+          "title": "Notes",
+          "description": "Customer notes",
+          "type": "string",
+          "x-nullable": true
+        },
+        "internal_notes": {
+          "title": "Internal notes",
+          "description": "Staff notes",
+          "type": "string",
+          "x-nullable": true
+        }
+      }
+    },
+    "Collection": {
+      "required": [
+        "name",
+        "handle"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "name": {
+          "title": "Name",
+          "type": "string",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "x-nullable": true
+        },
+        "handle": {
+          "title": "Handle",
+          "type": "string",
+          "format": "slug",
+          "pattern": "^[-a-zA-Z0-9_]+$",
+          "maxLength": 200,
+          "minLength": 1
+        },
+        "seo_title": {
+          "title": "Seo title",
+          "type": "string",
+          "maxLength": 500,
+          "x-nullable": true
+        },
+        "seo_description": {
+          "title": "Seo description",
+          "type": "string",
+          "x-nullable": true
+        },
+        "parent": {
+          "title": "Parent",
+          "type": "string",
+          "format": "uuid",
+          "x-nullable": true
+        },
+        "sort_order": {
+          "title": "Sort order",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648
+        },
+        "is_smart_collection": {
+          "title": "Is smart collection",
+          "type": "boolean"
+        },
+        "rules": {
+          "title": "Rules",
+          "type": "object"
+        },
+        "image": {
+          "title": "Image",
+          "type": "string",
+          "readOnly": true,
+          "x-nullable": true,
+          "format": "uri"
+        },
+        "published": {
+          "title": "Published",
+          "type": "boolean"
+        },
+        "published_at": {
+          "title": "Published at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "product_count": {
+          "title": "Product count",
+          "type": "string",
+          "readOnly": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_at": {
+          "title": "Updated at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "ProductList": {
+      "required": [
+        "sku",
+        "title",
+        "price"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "sku": {
+          "title": "Sku",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "maxLength": 500,
+          "minLength": 1
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "draft",
+            "active",
+            "archived",
+            "scheduled"
+          ]
+        },
+        "price": {
+          "title": "Price",
+          "description": "Price in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000
+        },
+        "price_display": {
+          "title": "Price display",
+          "type": "string",
+          "readOnly": true
+        },
+        "currency": {
+          "title": "Currency",
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 1
+        },
+        "quantity": {
+          "title": "Quantity",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "x-nullable": true
+        },
+        "is_in_stock": {
+          "title": "Is in stock",
+          "type": "string",
+          "readOnly": true
+        },
+        "is_low_stock": {
+          "title": "Is low stock",
+          "type": "string",
+          "readOnly": true
+        },
+        "primary_image": {
+          "title": "Primary image",
+          "type": "string",
+          "readOnly": true
+        },
+        "has_variants": {
+          "title": "Has variants",
+          "type": "boolean"
+        },
+        "variant_count": {
+          "title": "Variant count",
+          "type": "string",
+          "readOnly": true
+        },
+        "category": {
+          "title": "Category",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "vendor": {
+          "title": "Vendor",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_at": {
+          "title": "Updated at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "ProductCreate": {
+      "required": [
+        "sku",
+        "title",
+        "price"
+      ],
+      "type": "object",
+      "properties": {
+        "sku": {
+          "title": "Sku",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "maxLength": 500,
+          "minLength": 1
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "x-nullable": true
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "draft",
+            "active",
+            "archived",
+            "scheduled"
+          ]
+        },
+        "scheduled_at": {
+          "title": "Scheduled at",
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true
+        },
+        "price": {
+          "title": "Price",
+          "description": "Price in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000
+        },
+        "compare_at_price": {
+          "title": "Compare at price",
+          "description": "Original price in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000,
+          "x-nullable": true
+        },
+        "cost_per_item": {
+          "title": "Cost per item",
+          "description": "Cost in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000,
+          "x-nullable": true
+        },
+        "currency": {
+          "title": "Currency",
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 1
+        },
+        "track_quantity": {
+          "title": "Track quantity",
+          "type": "boolean"
+        },
+        "quantity": {
+          "title": "Quantity",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "x-nullable": true
+        },
+        "allow_out_of_stock": {
+          "title": "Allow out of stock",
+          "type": "boolean"
+        },
+        "low_stock_threshold": {
+          "title": "Low stock threshold",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "x-nullable": true
+        },
+        "weight": {
+          "title": "Weight",
+          "description": "Weight in grams",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "x-nullable": true
+        },
+        "dimensions": {
+          "title": "Dimensions",
+          "description": "Length, width, height in cm",
+          "type": "object",
+          "x-nullable": true
+        },
+        "seo_title": {
+          "title": "Seo title",
+          "type": "string",
+          "maxLength": 500,
+          "x-nullable": true
+        },
+        "seo_description": {
+          "title": "Seo description",
+          "type": "string",
+          "x-nullable": true
+        },
+        "tag_list": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          }
+        },
+        "category": {
+          "title": "Category",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "vendor": {
+          "title": "Vendor",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "has_variants": {
+          "title": "Has variants",
+          "type": "boolean"
+        },
+        "requires_shipping": {
+          "title": "Requires shipping",
+          "type": "boolean"
+        },
+        "shipping_class": {
+          "title": "Shipping class",
+          "type": "string",
+          "maxLength": 50,
+          "x-nullable": true
+        },
+        "collection_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    },
+    "ProductImage": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "image": {
+          "title": "Image",
+          "type": "string",
+          "readOnly": true,
+          "format": "uri"
+        },
+        "alt_text": {
+          "title": "Alt text",
+          "type": "string",
+          "maxLength": 500,
+          "x-nullable": true
+        },
+        "position": {
+          "title": "Position",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "ProductOptionValue": {
+      "required": [
+        "value"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "value": {
+          "title": "Value",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "position": {
+          "title": "Position",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648
+        }
+      }
+    },
+    "ProductOption": {
+      "required": [
+        "name"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "name": {
+          "title": "Name",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "position": {
+          "title": "Position",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648
+        },
+        "values": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductOptionValue"
+          },
+          "readOnly": true
+        }
+      }
+    },
+    "ProductVariant": {
+      "required": [
+        "sku",
+        "title"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "sku": {
+          "title": "Sku",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "maxLength": 500,
+          "minLength": 1
+        },
+        "price": {
+          "title": "Price",
+          "description": "Override price in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000,
+          "x-nullable": true
+        },
+        "compare_at_price": {
+          "title": "Compare at price",
+          "description": "Override compare price in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000,
+          "x-nullable": true
+        },
+        "cost_per_item": {
+          "title": "Cost per item",
+          "description": "Override cost in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000,
+          "x-nullable": true
+        },
+        "quantity": {
+          "title": "Quantity",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "x-nullable": true
+        },
+        "weight": {
+          "title": "Weight",
+          "description": "Override weight in grams",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "x-nullable": true
+        },
+        "dimensions": {
+          "title": "Dimensions",
+          "description": "Override dimensions",
+          "type": "object",
+          "x-nullable": true
+        },
+        "option_values": {
+          "title": "Option values",
+          "description": "Option name -> value mapping",
+          "type": "object"
+        },
+        "image": {
+          "title": "Image",
+          "type": "string",
+          "readOnly": true,
+          "x-nullable": true,
+          "format": "uri"
+        },
+        "available": {
+          "title": "Available",
+          "type": "boolean"
+        },
+        "effective_price": {
+          "title": "Effective price",
+          "type": "string",
+          "readOnly": true
+        },
+        "is_in_stock": {
+          "title": "Is in stock",
+          "type": "string",
+          "readOnly": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_at": {
+          "title": "Updated at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        }
+      }
+    },
+    "ProductDetail": {
+      "required": [
+        "sku",
+        "title",
+        "price"
+      ],
+      "type": "object",
+      "properties": {
+        "id": {
+          "title": "Id",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "sku": {
+          "title": "Sku",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "maxLength": 500,
+          "minLength": 1
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "x-nullable": true
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "draft",
+            "active",
+            "archived",
+            "scheduled"
+          ]
+        },
+        "published_at": {
+          "title": "Published at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true,
+          "x-nullable": true
+        },
+        "scheduled_at": {
+          "title": "Scheduled at",
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true
+        },
+        "price": {
+          "title": "Price",
+          "description": "Price in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000
+        },
+        "compare_at_price": {
+          "title": "Compare at price",
+          "description": "Original price in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000,
+          "x-nullable": true
+        },
+        "cost_per_item": {
+          "title": "Cost per item",
+          "description": "Cost in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000,
+          "x-nullable": true
+        },
+        "price_display": {
+          "title": "Price display",
+          "type": "string",
+          "readOnly": true
+        },
+        "currency": {
+          "title": "Currency",
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 1
+        },
+        "track_quantity": {
+          "title": "Track quantity",
+          "type": "boolean"
+        },
+        "quantity": {
+          "title": "Quantity",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "x-nullable": true
+        },
+        "allow_out_of_stock": {
+          "title": "Allow out of stock",
+          "type": "boolean"
+        },
+        "low_stock_threshold": {
+          "title": "Low stock threshold",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "x-nullable": true
+        },
+        "is_in_stock": {
+          "title": "Is in stock",
+          "type": "string",
+          "readOnly": true
+        },
+        "is_low_stock": {
+          "title": "Is low stock",
+          "type": "string",
+          "readOnly": true
+        },
+        "weight": {
+          "title": "Weight",
+          "description": "Weight in grams",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "x-nullable": true
+        },
+        "dimensions": {
+          "title": "Dimensions",
+          "description": "Length, width, height in cm",
+          "type": "object",
+          "x-nullable": true
+        },
+        "seo_title": {
+          "title": "Seo title",
+          "type": "string",
+          "maxLength": 500,
+          "x-nullable": true
+        },
+        "seo_description": {
+          "title": "Seo description",
+          "type": "string",
+          "x-nullable": true
+        },
+        "tag_list": {
+          "title": "Tag list",
+          "type": "string",
+          "readOnly": true
+        },
+        "category": {
+          "title": "Category",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "vendor": {
+          "title": "Vendor",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "has_variants": {
+          "title": "Has variants",
+          "type": "boolean"
+        },
+        "requires_shipping": {
+          "title": "Requires shipping",
+          "type": "boolean"
+        },
+        "shipping_class": {
+          "title": "Shipping class",
+          "type": "string",
+          "maxLength": 50,
+          "x-nullable": true
+        },
+        "images": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductImage"
+          },
+          "readOnly": true
+        },
+        "options": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductOption"
+          },
+          "readOnly": true
+        },
+        "variants": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ProductVariant"
+          },
+          "readOnly": true
+        },
+        "collections": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Collection"
+          },
+          "readOnly": true
+        },
+        "created_at": {
+          "title": "Created at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "updated_at": {
+          "title": "Updated at",
+          "type": "string",
+          "format": "date-time",
+          "readOnly": true
+        },
+        "created_by": {
+          "title": "Created by",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        },
+        "updated_by": {
+          "title": "Updated by",
+          "type": "string",
+          "format": "uuid",
+          "readOnly": true
+        }
+      }
+    },
+    "ProductUpdate": {
+      "required": [
+        "sku",
+        "title",
+        "price"
+      ],
+      "type": "object",
+      "properties": {
+        "sku": {
+          "title": "Sku",
+          "type": "string",
+          "maxLength": 100,
+          "minLength": 1
+        },
+        "title": {
+          "title": "Title",
+          "type": "string",
+          "maxLength": 500,
+          "minLength": 1
+        },
+        "description": {
+          "title": "Description",
+          "type": "string",
+          "x-nullable": true
+        },
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "draft",
+            "active",
+            "archived",
+            "scheduled"
+          ]
+        },
+        "scheduled_at": {
+          "title": "Scheduled at",
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true
+        },
+        "price": {
+          "title": "Price",
+          "description": "Price in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000
+        },
+        "compare_at_price": {
+          "title": "Compare at price",
+          "description": "Original price in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000,
+          "x-nullable": true
+        },
+        "cost_per_item": {
+          "title": "Cost per item",
+          "description": "Cost in cents",
+          "type": "integer",
+          "maximum": 9223372036854776000,
+          "minimum": -9223372036854776000,
+          "x-nullable": true
+        },
+        "currency": {
+          "title": "Currency",
+          "type": "string",
+          "maxLength": 3,
+          "minLength": 1
+        },
+        "track_quantity": {
+          "title": "Track quantity",
+          "type": "boolean"
+        },
+        "quantity": {
+          "title": "Quantity",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "x-nullable": true
+        },
+        "allow_out_of_stock": {
+          "title": "Allow out of stock",
+          "type": "boolean"
+        },
+        "low_stock_threshold": {
+          "title": "Low stock threshold",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "x-nullable": true
+        },
+        "weight": {
+          "title": "Weight",
+          "description": "Weight in grams",
+          "type": "integer",
+          "maximum": 2147483647,
+          "minimum": -2147483648,
+          "x-nullable": true
+        },
+        "dimensions": {
+          "title": "Dimensions",
+          "description": "Length, width, height in cm",
+          "type": "object",
+          "x-nullable": true
+        },
+        "seo_title": {
+          "title": "Seo title",
+          "type": "string",
+          "maxLength": 500,
+          "x-nullable": true
+        },
+        "seo_description": {
+          "title": "Seo description",
+          "type": "string",
+          "x-nullable": true
+        },
+        "tag_list": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "maxLength": 100,
+            "minLength": 1
+          }
+        },
+        "category": {
+          "title": "Category",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "vendor": {
+          "title": "Vendor",
+          "type": "string",
+          "maxLength": 100,
+          "x-nullable": true
+        },
+        "has_variants": {
+          "title": "Has variants",
+          "type": "boolean"
+        },
+        "requires_shipping": {
+          "title": "Requires shipping",
+          "type": "boolean"
+        },
+        "shipping_class": {
+          "title": "Shipping class",
+          "type": "string",
+          "maxLength": 50,
+          "x-nullable": true
+        },
+        "collection_ids": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    },
+    "ProductStatusUpdate": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "title": "Status",
+          "type": "string",
+          "enum": [
+            "draft",
+            "active",
+            "archived",
+            "scheduled"
+          ]
+        },
+        "scheduled_at": {
+          "title": "Scheduled at",
+          "type": "string",
+          "format": "date-time",
+          "x-nullable": true
+        }
+      }
+    }
+  }
+}
